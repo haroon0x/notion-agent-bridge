@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>Notion Opencode</title>
+<style>
+  body { font-family: system-ui, sans-serif; margin: 12px; font-size: 13px; }
+  label { font-weight: 600; display: block; margin: 10px 0 4px; }
+  input, select, textarea, button { width: 100%; box-sizing: border-box; }
+  input, select, textarea { padding: 6px; }
+  textarea { min-height: 90px; resize: vertical; }
+  .row { display: flex; gap: 8px; }
+  .row button { flex: 1; }
+  button { padding: 8px; margin-top: 10px; cursor: pointer; }
+  #preview { border: 1px solid #ddd; border-radius: 6px; padding: 8px; margin-top: 10px; white-space: pre-wrap; max-height: 320px; overflow: auto; background: #fafafa; }
+  #log { margin-top: 10px; font-size: 12px; color: #444; white-space: pre-wrap; }
+  .edit { border-bottom: 1px solid #e5e5e5; padding: 6px 0; }
+  .mode { font-size: 11px; font-weight: 700; color: #0b5fff; }
+  small { color: #666; }
+</style>
+</head>
+<body>
+  <h3>Notion Agent Bridge</h3>
+  <small>Commands run on your local agent bridge (opencode, claude, codex...). Nothing leaves localhost except via your own model provider.</small>
+
+  <label for="serverUrl">Bridge URL</label>
+  <input id="serverUrl" value="http://127.0.0.1:8787" />
+
+  <label for="bridgeToken">Bridge token</label>
+  <input id="bridgeToken" type="password" placeholder="must match NOB_TOKEN on server" />
+
+  <label for="model">Model (optional)</label>
+  <input id="model" placeholder="e.g. anthropic/claude-sonnet-4-5 (empty = server default)" />
+
+  <label for="scope">Scope</label>
+  <select id="scope">
+    <option value="selection">Selected text (fallback: whole page)</option>
+    <option value="page">Whole page</option>
+  </select>
+
+  <label for="command">Instruction</label>
+  <textarea id="command" placeholder="e.g. Rewrite selection as 3 crisp bullets, keep names exact"></textarea>
+
+  <div class="row">
+    <button id="run">Generate</button>
+    <button id="apply" disabled>Apply to page</button>
+  </div>
+
+  <div id="preview">No edits yet.</div>
+  <div id="log"></div>
+  <script src="sidepanel.js"></script>
+</body>
+</html>

@@ -1,0 +1,28 @@
+{
+  "manifest_version": 3,
+  "name": "Notion Agent Bridge",
+  "version": "0.1.0",
+  "description": "Send Notion page context to a local agent-CLI bridge and apply edits to the page DOM.",
+  "permissions": ["sidePanel", "activeTab", "scripting", "storage"],
+  "host_permissions": [
+    "https://www.notion.so/*",
+    "https://notion.so/*",
+    "http://127.0.0.1:8787/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "side_panel": {
+    "default_path": "sidepanel.html"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://www.notion.so/*", "https://notion.so/*"],
+      "js": ["content.js"],
+      "run_at": "document_idle"
+    }
+  ],
+  "action": {
+    "default_title": "Notion Opencode"
+  }
+}

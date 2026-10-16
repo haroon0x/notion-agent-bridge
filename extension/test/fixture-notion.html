@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8"><title>Fake Notion page</title></head>
+<body>
+  <!-- Mimics Notion DOM shape that content.js relies on:
+       .notion-page-content root, [data-block-id] blocks, nested [contenteditable]. -->
+  <div class="notion-page-content">
+    <div data-block-id="b1" class="notion-block">
+      <div contenteditable="true">First block alpha</div>
+    </div>
+    <div data-block-id="b2" class="notion-block">
+      <div contenteditable="true">Second block beta</div>
+    </div>
+    <div data-block-id="b3" class="notion-block">
+      <div contenteditable="true">Third block gamma</div>
+    </div>
+    <div data-block-id="b-empty" class="notion-block">
+      <div contenteditable="true">   </div>
+    </div>
+    <div role="menu">
+      <div data-block-id="m1"><div contenteditable="true">Menu item must be excluded</div></div>
+    </div>
+    <div data-block-id="b4" class="notion-block">
+      <div contenteditable="true" id="longblock"></div>
+    </div>
+  </div>
+  <script>
+    // 20000-char block to exercise the 12000-char truncation cap.
+    document.getElementById("longblock").textContent = "x".repeat(20000);
+  </script>
+</body>
+</html>
